@@ -23,8 +23,9 @@ mfccdir=`pwd`/mfcc
 stage=0
 overlap_stage=0
 diarizer_stage=0
-nj=50
-decode_nj=15
+nj=12
+decode_nj=12
+mic=ihm
 
 model_dir=exp/xvector_nnet_1a
 
@@ -36,7 +37,7 @@ diarizer_type=spectral  # must be one of (ahc, spectral, vbx)
 . utils/parse_options.sh
 
 # Path where AMI gets downloaded (or where locally available):
-AMI_DIR=$PWD/wav_db # Default,
+AMI_DIR=/home/users/astar/i2r/wonghmj/scratch/ami # Default,
 case $(hostname -d) in
   fit.vutbr.cz) AMI_DIR=/mnt/matylda5/iveselyk/KALDI_AMI_WAV ;; # BUT,
   clsp.jhu.edu) AMI_DIR=/export/corpora5/amicorpus ;; # JHU,

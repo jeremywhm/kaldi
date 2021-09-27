@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env /usr/bin/python
 """
  Copyright 2020 Johns Hopkins University  (Author: Desh Raj)
   Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0)  
@@ -21,6 +21,7 @@ import pandas as pd
 def find_audios(wav_path, file_list):
     # Get all wav file names from audio directory
     command = 'find %s -name "*Mix-Headset.wav"' % (wav_path)
+    print(command)
     wavs = subprocess.check_output(command, shell=True).decode('utf-8').splitlines()
     keys = [ os.path.splitext(os.path.basename(wav))[0] for wav in wavs ]
     data = {'key': keys, 'file_path': wavs}
@@ -65,7 +66,7 @@ def make_diar_data(meetings, wav_path, output_path, sad_labels_dir=None):
         for line in f:
             file_list.append(line.strip())
 
-    print('read audios')
+    print('read audios {} {}'.format(wav_path, file_list))
     df_wav = find_audios(wav_path, file_list)
     
     print('make wav.scp')

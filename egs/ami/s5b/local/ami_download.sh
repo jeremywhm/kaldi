@@ -56,8 +56,8 @@ cat local/split_train.orig local/split_eval.orig local/split_dev.orig > $wdir/am
 wgetfile=$wdir/wget_$mic.sh
 
 # TODO fix this with Pawel, files don't exist anymore,
-manifest="wget --continue -O $adir/MANIFEST.TXT http://groups.inf.ed.ac.uk/ami/download/temp/amiBuild-04237-Sun-Jun-15-2014.manifest.txt"
-license="wget --continue -O $adir/LICENCE.TXT http://groups.inf.ed.ac.uk/ami/download/temp/Creative-Commons-Attribution-NonCommercial-ShareAlike-2.5.txt"
+manifest="manifest.txt"
+license=""
 
 echo "#!/usr/bin/env bash" > $wgetfile
 echo $manifest >> $wgetfile
@@ -72,6 +72,7 @@ while read line; do
        # Hint: avoiding re-download by '--continue',
        echo "wget -nv --continue -P $adir/$line/audio $amiurl/AMICorpusMirror/amicorpus/$line/audio/$line.Headset-$m.wav" >> $wgetfile
      done
+     #echo "wget -nv --continue -P $adir/$line/audio $amiurl/AMICorpusMirror/amicorpus/$line/audio/$line.Mix-Headset.wav" >> $wgetfile
    else
      for m in $mics; do
        # Hint: avoiding re-download by '--continue',
@@ -89,6 +90,7 @@ $wgetfile &> $wdir/log/download_ami_$mic.log
 if [ "$mic" == "ihm" ]; then
   num_files=$(find $adir -iname *Headset* | wc -l)
   if [ $num_files -ne 687 ]; then
+  #if [ $num_files -ne 858 ]; then # 858 includes all of the Mix-Headset wav files
     echo "Warning: Found $num_files headset wavs but expected 687. Check $wdir/log/download_ami_$mic.log for details."
     exit 1;
   fi
